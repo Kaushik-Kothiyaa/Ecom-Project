@@ -1,46 +1,45 @@
-import { useState } from "react";
+
 import Footer from "../components/Home/Footer";
-import { useDispatch, useSelector } from "react-redux";
-import { clearAuthMessage, registerUser } from "../redux/authSlice";
+
 
 export const Register = () => {
-    const dispatch = useDispatch();
-    const { isLoading, isSuccess, isError, message } = useSelector((state) => state.auth);
-    const [formData, setFormData] = useState({ firstName: "", lastName: "", email: "", mobile: "", password: "", confirmPassword: "", address: "", city: "", state: "", pincode: "", country: "", terms: false });
-    const [validationMessage, setValidationMessage] = useState("");
+    // const dispatch = useDispatch();
+    // const { isLoading, isSuccess, isError, message } = useSelector((state) => state.auth);
+    // const [formData, setFormData] = useState({ firstName: "", lastName: "", email: "", mobile: "", password: "", confirmPassword: "", address: "", city: "", state: "", pincode: "", country: "", terms: false });
+    // const [validationMessage, setValidationMessage] = useState("");
 
-    const handleChange = (e) => {
-        const { name, value, type, checked } = e.target;
-        setFormData({ ...formData, [name]: type === "checkbox" ? checked : value });
-        setValidationMessage("");
-    };
+    // const handleChange = (e) => {
+    //     const { name, value, type, checked } = e.target;
+    //     setFormData({ ...formData, [name]: type === "checkbox" ? checked : value });
+    //     setValidationMessage("");
+    // };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        dispatch(clearAuthMessage());
-        setValidationMessage("");
+    // const handleSubmit = (e) => {
+    //     e.preventDefault();
+    //     dispatch(clearAuthMessage());
+    //     setValidationMessage("");
 
-        if (formData.password !== formData.confirmPassword) {
-            setValidationMessage("Password and Confirm Password do not match.");
-            return;
-        }
+    //     if (formData.password !== formData.confirmPassword) {
+    //         setValidationMessage("Password and Confirm Password do not match.");
+    //         return;
+    //     }
 
-        if (!/^\d{10}$/.test(formData.mobile)) {
-            setValidationMessage("Phone number must be 10 digits.");
-            return;
-        }
+    //     if (!/^\d{10}$/.test(formData.mobile)) {
+    //         setValidationMessage("Phone number must be 10 digits.");
+    //         return;
+    //     }
 
-        if (!formData.terms) {
-            setValidationMessage("Please agree to the Terms & Conditions.");
-            return;
-        }
+    //     if (!formData.terms) {
+    //         setValidationMessage("Please agree to the Terms & Conditions.");
+    //         return;
+    //     }
 
-        dispatch(registerUser({ name: `${formData.firstName} ${formData.lastName}`.trim(), email: formData.email, phone: formData.mobile, password: formData.password }));
-    };
+    //     dispatch(registerUser({ name: `${formData.firstName} ${formData.lastName}`.trim(), email: formData.email, phone: formData.mobile, password: formData.password }));
+    // };
 
     return (
         <>
-            <section className="register-page py-5">
+            {/* <section className="register-page py-5">
                 <div className="container">
                     <div className="row justify-content-center">
                         <div className="col-12 col-lg-10 col-xl-10">
@@ -134,7 +133,7 @@ export const Register = () => {
                     </div>
                 </div>
             </section>
-            <Footer />
+            <Footer /> */}
         </>
     );
 };
