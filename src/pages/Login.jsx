@@ -31,10 +31,10 @@ export const Login = () => {
     };
 
     useEffect(() => {
-        if (auth.isAuthonticated && auth.role === "admin") {
-            navigate("/products");
+        if (auth.isAuthenticated && auth.role === "admin") {
+            navigate("/");
         }
-    }, [auth.isAuthonticated, auth.role, navigate]);
+    }, [auth.isAuthenticated, auth.role, navigate]);
 
     return <>
         <section className="login-page py-5">

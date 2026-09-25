@@ -15,7 +15,7 @@ export const authSlice = createSlice({
     name: 'auth',
     initialState: {
         isLoading: false,
-        isAuthonticated: !!token,
+        isAuthenticated: !!token,
         token: token ? token : null,
         role: role ? role : null,
         data: {},
@@ -27,7 +27,7 @@ export const authSlice = createSlice({
             state.data = null,
                 state.token = null,
                 state.role = null,
-                state.isAuthenticated = false
+                state.isAuthenticated  = false
 
             localStorage.removeItem("token")
             localStorage.removeItem("role")
@@ -42,7 +42,7 @@ export const authSlice = createSlice({
         })
         builder.addCase(loginUser.fulfilled, (state, action) => {
             state.isLoading = false,
-                state.isAuthonticated = true,
+                state.isAuthenticated = true,
                 state.isError = false;
                 state.message = action.payload.message,
                 state.data = action.payload.data;
@@ -54,12 +54,15 @@ export const authSlice = createSlice({
         builder.addCase(loginUser.rejected, (state, action)=>{
             state.isLoading = false;
             state.isError = true;
-            state.isAuthenticated = false;
+            state.isAuthenticated  = false;
             state.message = action.payload?.message || "Login failed";
         })
     }
 
 })
+
+e
+export const { logout } = authSlice.actions;
 
 export default authSlice.reducer
 

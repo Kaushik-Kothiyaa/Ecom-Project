@@ -1,14 +1,33 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import logo from "../assets/images/template-white-logo.png";
 import cartIcon from "../assets/images/cart-shopping.svg";
 import searchIcon from "../assets/images/search-icon.svg";
 import product1 from "../assets/images/single-product/1.jpg";
 import product2 from "../assets/images/single-product/2.jpg";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../features/Ecomm App/authSlice";
 
 export const Navbar = () => {
     const [menuOpen, setMenuOpen] = useState(false);
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const auth = useSelector((state)=>state.auth);
+    console.log("NAVBAR AUTH:", auth);
+
+    const logoutHandler = () =>{
+        dispatch(logout());
+        navigate("/")
+
+        
+    console.log(!localStorage.getItem("user"));
+    console.log(!!localStorage.getItem("user"));
+    }
+
+    const isLoggedIn = auth.isAuthenticated;
+    
+    
 
     return (
         <header className="site-navbar">
@@ -30,9 +49,12 @@ export const Navbar = () => {
 
                 {/* Desktop Actions */}
                 <div className="navbar-actions">
-                    <Link to="/register" className="navbar-button">Register</Link>
-                    <Link to="/login" className="navbar-button">Login</Link>
+                    {isLoggedIn ? (<button type="button" onClick={logoutHandler} className="navbar-button">Logout</button>) : (<> 
+                        <Link to="/register" className="navbar-button">Register</Link>
+                        <Link to="/login" className="navbar-button">Login</Link>
+                    </>)}
 
+                   
                     <div className="navbar-cart">
                         <Link to="/cart" className="navbar-icon">
                             <img src={cartIcon} alt="Cart" />
@@ -84,8 +106,15 @@ export const Navbar = () => {
                     <Link to="/products" onClick={() => setMenuOpen(false)}>Products</Link>
                     <Link to="/cart" onClick={() => setMenuOpen(false)}>Cart</Link>
                     <Link to="/checkout" onClick={() => setMenuOpen(false)}>Checkout</Link>
-                    <Link to="/register" onClick={() => setMenuOpen(false)}>Register</Link>
-                    <Link to="/login" onClick={() => setMenuOpen(false)}>Login</Link>
+                    {isLoggedIn ? (<button type="button" onClick={()=>{ logoutHandler(); setMenuOpen(false);}}>Logout</button>) :
+                        (
+                         <>
+                            <Link to="/register" onClick={() => setMenuOpen(false)}>Register</Link>
+                            <Link to="/login" onClick={() => setMenuOpen(false)}>Login</Link>
+                        </>                          
+                        )
+                    }
+                   
                 </div>
             )}
         </header>
